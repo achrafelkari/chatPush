@@ -1,0 +1,28 @@
+module chatmodule{
+     
+    interface Emitter {
+     attribute string client;
+    void sendMassage(in string to, in string message);
+		};
+		
+   typedef sequence<Emitter> LesEmmeteurs;
+   typedef sequence<string> Clients;
+     
+     interface Receiver{
+     attribute string message;
+	 attribute string client;     
+     void receive(in string from,in string message);
+     void initClients(in Clients clients);
+     void addClient(in string client);
+     void remClient(in string client);
+     };
+        typedef sequence<Receiver> LesRecepteurs;
+	
+	interface Connection{
+ 		attribute Clients clients;
+ 		attribute LesRecepteurs recivers;
+ 		attribute LesEmmeteurs emitter;
+ 		Emitter connect(in string nickname,in Receiver rcv);
+ 		void disconnect(in string nickname);
+		};
+	};
